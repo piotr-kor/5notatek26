@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Test API Notes</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    button { margin: 5px; padding: 8px 15px; }
+    pre { background: #f4f4f4; padding: 10px; border-radius: 5px; }
+    input, textarea { margin: 5px 0; width: 100%; padding: 6px; }
+    .section { border: 1px solid #ddd; padding: 15px; margin: 10px 5px; border-radius: 8px; width:30%; float: left;}
+  </style>
+</head>
+<body>
+  <h1>Tester API Notes</h1>
+
+  <div class="section">
+    <h3>GET (pobierz notatki)</h3>
+    <label>ID (opcjonalnie): <input type="number" id="getId"></label><br>
+    <button onclick="testAPI('GET')">Wyślij</button>
+  </div>
+
+  <div class="section">
+    <h3>POST (dodaj notatkę)</h3>
+    <label>Treść: <textarea id="postContent"></textarea></label><br>
+    <button onclick="testAPI('POST')">Wyślij</button>
+  </div>
+
+  <div class="section">
+    <h3>PUT / PATCH (aktualizuj notatkę)</h3>
+    <label>ID: <input type="number" id="putId"></label><br>
+    <label>Nowa treść: <textarea id="putContent"></textarea></label><br>
+    <button onclick="testAPI('PUT')">PUT</button>
+    <button onclick="testAPI('PATCH')">PATCH</button>
+  </div>
+
+  <div class="section">
+    <h3>DELETE (usuń notatkę)</h3>
+    <label>ID: <input type="number" id="deleteId"></label><br>
+    <button onclick="testAPI('DELETE')">Wyślij</button>
+  </div>
+  <div class="section">
+    <h2>Wynik</h2>
+    <pre id="output"></pre>
+  </div>
+  <script>
+    const API_URL = "http://localhost/5notatek-v25/api.php"; // zmień ścieżkę jeśli plik jest gdzie indziej
+
+    async function testAPI(method) {
+      let url = API_URL;
+      let options = { method, headers: { "Content-Type": "application/json" } };
+      let body = null;
+
+      if (method === "GET") {
+        const id = document.getElementById("getId").value;
+        if (id) url += "?id=" + encodeURIComponent(id);
+      }
+
+      if (method === "POST") {
+        const content = document.getElementById("postContent").value;
+        body = JSON.stringify({ content });
+        options.body = body;
+      }
+
+      if (method === "PUT" || method === "PATCH") {
+        const id = document.getElementById("putId").value;
+        const content = document.getElementById("putContent").value;
+        if (id) url += "?id=" + encodeURIComponent(id);
+        body = JSON.stringify({ content });
+        options.body = body;
+      }
+
+      if (method === "DELETE") {
+        const id = document.getElementById("deleteId").value;
+        if (id) url += "?id=" + encodeURIComponent(id);
+      }
+
+      let responseText = "";
+      try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        responseText = JSON.stringify(result, null, 2);
+      } catch (err) {
+        responseText = "Błąd: " + err.message;
+      }
+
+      document.getElementById("output").textContent =
+        "Zapytanie: " + method + " " + url + "\n" +
+        (body ? "Body: " + body + "\n" : "") +
+        "Odpowiedź:\n" + responseText;
+    }
+  </script>
+</body>
+</html>

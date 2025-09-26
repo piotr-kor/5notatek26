@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notatniczek</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css.css">
+</head>
+<body class="p-5">
+
+  <div class="container">
+    <h2 class="mb-4">Notatniczek</h2>
+
+    <!-- Pasek z zakładkami -->
+    <ul class="nav nav-tabs" id="myTab">
+      <li class="nav-item">
+        <button class="nav-link active" id="akordeon-notatek-tab" data-bs-toggle="tab" data-bs-target="#notatki-akordeon"
+          type="button">
+          Notatki - akordeon
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" id="kasowanie-tab" data-bs-toggle="tab" data-bs-target="#kasowanie"
+          type="button">
+          Kasowanie notatek
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" id="eksport-tab" data-bs-toggle="tab" data-bs-target="#eksport"
+          type="button">
+          Eksport notatek
+        </button>
+      </li>
+    </ul>
+
+    <!-- Zawartość zakładek -->
+    <div class="tab-content border border-top-0 p-4 bg-light rounded-bottom" id="myTabContent">
+      <div class="tab-pane fade show active" id="notatki-akordeon">
+        <div class="accordion" id="accordionExample">
+            <!-- Ten accordion-item i tak zoztenie usunięty... -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                    Sekcja 1
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                    To jest zawartość sekcji pierwszej.
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="kasowanie">
+        <h4>Kasowanie</h4>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#optionsModal">
+          Wyczyść wszystkie notatki
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="optionsModal" tabindex="-1" aria-labelledby="optionsModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="optionsModalLabel">Wybierz opcję</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zamknij"></button>
+              </div>
+              <div class="modal-body">
+                Czy naprawdę chcesz posprzątać zupełnie?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
+                <button type="button" class="btn btn-success" onclick="kasowanie();">Tak</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="eksport">
+        <h4>Eksport</h4>
+        <p>Tutaj będzie eksport</p>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js.js"></script>
+</body>
+</html>
