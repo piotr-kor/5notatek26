@@ -1,0 +1,22 @@
+body, 
+.modal-body, 
+.modal-title, 
+.btn, 
+.navbar, 
+.navbar-brand, 
+.nav-link, 
+.dropdown-item, 
+.card-title, 
+.card-body, 
+.alert, 
+.toast, 
+.tooltip, 
+.popover, 
+.form-control, 
+.form-label {
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+}
+.kodzik{
+    font-family: "Fira Code", "Source Code Pro", "Consolas", "Monaco", "Courier New", monospace;
+    font-weight: normal;
+}

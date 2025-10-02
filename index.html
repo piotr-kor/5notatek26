@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notatniczek</title>
-  <link href="bootstrap.min.css" rel="stylesheet">  <!-- custom style from https://bootswatch.com/ -->>
+  <link href="bootstrap.min.css" rel="stylesheet">  <!-- custom style from https://bootswatch.com/ -->
   <link rel="stylesheet" href="css.css">
   
 </head>
@@ -65,7 +65,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="optionsModalLabel">Wybierz opcję</h5>
+                <h5 class="modal-title" id="optionsModalLabel">Wybierz</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zamknij"></button>
               </div>
               <div class="modal-body">
@@ -73,7 +73,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
-                <button type="button" class="btn btn-success" onclick="kasowanie();">Tak</button>
+                <button type="button" class="btn btn-success" onclick="kasowanie();" data-bs-dismiss="modal">Tak</button>
               </div>
             </div>
           </div>
@@ -81,7 +81,38 @@
       </div>
       <div class="tab-pane fade" id="eksport">
         <h4>Eksport</h4>
-        <p>Jeszcze nie ma eksportu</p>
+        <table class="table  table-hover  align-middle shadow-sm">
+          <thead class="fs-5">
+            <tr>
+              <th>Format</th>
+              <th>Podgląd</th>
+              <th>Pobierz</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>TXT</td>
+              <td><span class="kodzik">Notatka 1 - treść 1<br>Notatka 2 - treść 2<br>Notatka 3 - treść 3</span></td></td>
+              <td><button onclick="exportuj('txt')">Eksport TXT</button></td>
+            </tr>
+            <tr>
+              <td>CSV</td>
+              <td><span class="kodzik">id,content<br>"1","treść 1"<br>"2","treść 2"<br>"3","treść 3"</span></td>
+              <td><button onclick="exportuj('csv')">Eksport CSV</button></td>
+            </tr>
+            <tr>
+              <td>JSON</td>
+              <td><span class="kodzik">[{<br>"id": 1,<br>"content": "treść 1"},<br>{"id": 2,<br>"content": "treść 2"},</span></td>
+              <td><button onclick="exportuj('json')">Eksport JSON</button></td>
+            </tr>
+            <tr>
+              <td>EXE  (C++)</td>
+              <td><span class="kodzik">items[] = {{1, "treść 1"}, {2, "treść 2"}, {3, "treść 3"}};<br>
+                for(auto& i : items) std::cout &lt;&lt; i.id &lt;&lt; ": " &lt;&lt; i.content &lt;&lt; std::endl; </span></td>
+              <td><button id="exe-btn" onclick="changeBtnText()">Eksport EXE</button></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
