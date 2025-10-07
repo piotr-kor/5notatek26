@@ -7,8 +7,9 @@
     body { font-family: Arial, sans-serif; margin: 20px; }
     button { margin: 5px; padding: 8px 15px; }
     pre { background: #f4f4f4; padding: 10px; border-radius: 5px; }
-    input, textarea { margin: 5px 0; width: 100%; padding: 6px; }
-    .section { border: 1px solid #ddd; padding: 15px; margin: 10px 5px; border-radius: 8px; width:30%; float: left;}
+    input, textarea { margin: 5px 0; width: 90%; padding: 6px; }
+    .section { border: 1px solid #ddd; padding: 10px; margin: 10px 5px; border-radius: 8px; width:28%; float: left;}
+    .wyniki{ width:50%}
   </style>
 </head>
 <body>
@@ -39,7 +40,7 @@
     <label>ID: <input type="number" id="deleteId"></label><br>
     <button onclick="testAPI('DELETE')">Wyślij</button>
   </div>
-  <div class="section">
+  <div class="section wyniki">
     <h2>Wynik</h2>
     <pre id="output"></pre>
   </div>
