@@ -1,0 +1,19 @@
+# Zezwolenie na metody HTTP wymagane dla REST API
+<Limit GET POST PUT PATCH DELETE OPTIONS>
+    Require all granted
+</Limit>
+
+# Obsługa CORS (ważne, jeśli frontend łączy się z API)
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type, X-Requested-With, X-HTTP-Method-Override"
+</IfModule>
+
+# Opcjonalnie: mod_rewrite dla ładnych URL-i
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /api/
+    # Wszystko kierowane do api.php
+    # RewriteRule ^.*$ api.php [L,QSA]
+</IfModule>

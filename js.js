@@ -1,6 +1,8 @@
+const apiURL = 'http://localhost/5notatek-v26/api.php';
+
 function kasowanie() {
     //To wyczyści tylko pierwszą notatkę - tu trzeba dokończyć
-    fetch(`http://localhost/5notatek-v25/api.php?id=1`, {
+    fetch(`${apiURL}?id=1`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json"
@@ -15,7 +17,7 @@ function kasowanie() {
     document.getElementById("textarea1").value = "";
   }
   // 1. Pobierz notatki z API
-  fetch("http://localhost/5notatek-v25/api.php")
+  fetch(`${apiURL}`)
     .then(res => res.json())
     .then(data => {
       const accordion = document.getElementById("accordionExample");
@@ -71,7 +73,7 @@ function kasowanie() {
           // Tworzymy tu łańcuch z .then(...) – każdy dostaje wynik z poprzedniego. To tzw. chainowanie Promise’ów.
           // .catch(...) to taki „bezpiecznik” na końcu całego łańcucha.
           
-          fetch(`http://localhost/5notatek-v25/api.php?id=${noteId}`, {
+          fetch(`${apiURL}?id=${noteId}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json"
@@ -90,7 +92,7 @@ function kasowanie() {
 async function exportuj(format) {
       try {
         // pobranie danych z API
-        const response = await fetch("http://localhost/5notatek-v25/api.php");
+        const response = await fetch(apiURL);
         const data = await response.json();
 
         let zawartosc = "";

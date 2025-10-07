@@ -63,7 +63,7 @@
       <div class="tab-pane fade" id="kasowanie">
         <h4>Kasowanie</h4>
         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#optionsModal">
-          Kasuj wszystkie notatki
+          Wyczyść treść wszystkich notatek
         </button>
 
         <!-- Modal -->
@@ -75,7 +75,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zamknij"></button>
               </div>
               <div class="modal-body">
-                Czy naprawdę chcesz posprzątać zupełnie?
+                Ta opcja powinna wyczyścić treść wszystkich notatek, ale wyczyści tylko jedną. Wyczyścić?
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
@@ -120,8 +120,10 @@
           </tbody>
         </table>
       </div>
-      <div class="tab-pane fade show active" id="api-test">
+      <div class="tab-pane fade" id="api-test">
         <iframe src="test.html" width="100%" height="800"></iframe>
+        <p>Jeśli wykonasz jakieś zmiany w bazie z tego miejsca, to może być konieczne odświerzenie aplikacji, gdyż API-tester nie jest częścią aplikacji. 
+          Jest po prostu osadzonym API-testerem</p>
       </div>
     </div>
   </div>
