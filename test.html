@@ -47,9 +47,13 @@
   <script>
     const API_URL = "http://localhost/5notatek-v26/api.php"; // zmień ścieżkę jeśli plik jest gdzie indziej
 
+    const token = localStorage.getItem("token");
+    //if (!token) return;
+
     async function testAPI(method) {
       let url = API_URL;
-      let options = { method, headers: { "Content-Type": "application/json" } };
+      let options = { method, headers: { "Content-Type": "application/json",
+                                         "Authorization": "Bearer " + token  } };
       let body = null;
 
       if (method === "GET") {

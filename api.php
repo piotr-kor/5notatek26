@@ -4,9 +4,41 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
+require_once __DIR__ . '/vendor/autoload.php';
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+$secretKey = "PRAWIE_SEKRETNY_KLUCZ_123";
+
 $dsn = "mysql:host=localhost;dbname=notes_app;charset=utf8mb4";
 $user = "root";
 $pass = "";
+
+function authenticate($secretKey) {
+    $headers = getallheaders();
+    if (!isset($headers['Authorization'])) {
+        http_response_code(401);
+        echo json_encode(["error" => "Missing Authorization header"]);
+        exit;
+    }
+
+    $matches = [];
+    if (!preg_match('/Bearer\s(\S+)/', $headers['Authorization'], $matches)) {
+        http_response_code(401);
+        echo json_encode(["error" => "Invalid Authorization header"]);
+        exit;
+    }
+
+    $jwt = $matches[1];
+
+    try {
+        $decoded = JWT::decode($jwt, new Key($secretKey, 'HS256'));
+        return $decoded;
+    } catch (Exception $e) {
+        http_response_code(401);
+        echo json_encode(["error" => "Invalid or expired token"]);
+        exit;
+    }
+}
 
 try {
     $pdo = new PDO($dsn, $user, $pass, [
@@ -21,6 +53,10 @@ try {
 $method = $_SERVER["REQUEST_METHOD"];
 $input = json_decode(file_get_contents("php://input"), true);
 $id = $_GET["id"] ?? null;
+
+if ($method !== "OPTIONS") { // OPTIONS nie wymaga JWT
+    //authenticate($secretKey);         // <<<<<< TUTAJ ODKOMENTUJ !!!
+}
 
 switch ($method) {
     case "GET":

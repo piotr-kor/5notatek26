@@ -1,0 +1,27 @@
+# Ignoruj katalog vendor (Composer)
+vendor/
+
+# Ignoruj pliki systemowe i IDE
+.idea/
+.vscode/
+nbproject/
+.DS_Store
+Thumbs.db
+
+# Ignoruj logi i pliki cache
+*.log
+*.cache
+*.tmp
+
+# Ignoruj pliki konfiguracyjne środowiska
+.env
+.env.local
+.env.*.local
+
+# Ignoruj pliki z buildów
+node_modules/
+dist/
+build/
+
+# Ignoruj pliki composerowe backupowe
+composer.phar
