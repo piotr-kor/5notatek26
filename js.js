@@ -1,12 +1,19 @@
 const apiURL = 'http://localhost/5notatek-v26/api.php';
+const token = localStorage.getItem("token");
+
+
+function headersWithToken() {
+  return {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + token
+  };
+}
 
 function kasowanie() {
     //To wyczyści tylko pierwszą notatkę - tu trzeba dokończyć
     fetch(`${apiURL}?id=1`, {
             method: "PUT",
-            headers: {
-              "Content-Type": "application/json"
-            },
+            headers: headersWithToken(),
             body: JSON.stringify({ content: "" })
           })
           .then(res => res.json())
@@ -16,12 +23,27 @@ function kasowanie() {
           .catch(err => console.error("Błąd zapisu:", err));
     document.getElementById("textarea1").value = "";
   }
+
+let sortowac=0;
+function czy_sortowac() {
+      const checkbox = document.getElementById("sortCheckbox");
+      if (checkbox.checked) { sortowac=1; } else { sortowac=0; }
+      zbuduj_tresc_akordeonu();
+    }
+
   // 1. Pobierz notatki z API
-  fetch(`${apiURL}`)
+function zbuduj_tresc_akordeonu(){
+  fetch(`${apiURL}`, { headers: headersWithToken() })
     .then(res => res.json())
     .then(data => {
       const accordion = document.getElementById("accordionExample");
       accordion.innerHTML = "";
+      
+      console.log(data);
+      if(sortowac){
+        data.sort((a, b) => a.content.localeCompare(b.content, 'pl'));
+      }
+      //console.log(data);
 
       data.forEach((note, index) => {
         const isFirst = index === 0 ? "show" : "";
@@ -54,7 +76,7 @@ function kasowanie() {
       const collapses = accordion.querySelectorAll(".accordion-collapse");
       collapses.forEach(collapse => {
         collapse.addEventListener("hide.bs.collapse", () => {
-          const noteId = collapse.id.replace("collapse", ""); // np. "5"
+          const noteId = collapse.id.replace("collapse", "");
           const textarea = document.getElementById(`textarea${noteId}`);
           const newContent = textarea.value;
 
@@ -75,9 +97,7 @@ function kasowanie() {
           
           fetch(`${apiURL}?id=${noteId}`, {
             method: "PUT",
-            headers: {
-              "Content-Type": "application/json"
-            },
+            headers: headersWithToken(),
             body: JSON.stringify({ content: newContent })
           })
           .then(res => res.json())
@@ -88,11 +108,12 @@ function kasowanie() {
         });
       });
     });
-
+  }
+zbuduj_tresc_akordeonu();
 async function exportuj(format) {
       try {
         // pobranie danych z API
-        const response = await fetch(apiURL);
+        const response = await fetch(apiURL, { headers: headersWithToken() });
         const data = await response.json();
 
         let zawartosc = "";

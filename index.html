@@ -39,11 +39,21 @@
           API - tester
         </button>
       </li>
+      <li class="nav-item">
+        <button class="nav-link" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-test"
+          type="button">
+          Logowanie - tester
+        </button>
+      </li>
     </ul>
 
     <!-- Zawartość zakładek -->
     <div class="tab-content border border-top-0 p-4 bg-light rounded-bottom" id="myTabContent">
       <div class="tab-pane fade show active" id="notatki-akordeon">
+        <p><label>
+          <input type="checkbox" id="sortCheckbox" class="form-check-input me-3" onchange="czy_sortowac()">
+          Sortuj po treści
+        </label></p>
         <div class="accordion" id="accordionExample">
             <!-- Ten accordion-item i tak zoztenie usunięty... -->
             <div class="accordion-item">
@@ -124,6 +134,11 @@
         <iframe src="test.html" width="100%" height="800"></iframe>
         <p>Jeśli wykonasz jakieś zmiany w bazie z tego miejsca, to może być konieczne odświerzenie aplikacji, gdyż API-tester nie jest częścią aplikacji. 
           Jest po prostu osadzonym API-testerem</p>
+      </div>
+      <div class="tab-pane fade" id="login-test">
+        <iframe src="login.html" width="100%" height="500"></iframe>
+        <p>Jeśli wykonasz jakieś zmiany w bazie z tego miejsca, to może być konieczne odświerzenie aplikacji, gdyż ten formularz nie jest częścią aplikacji. 
+          Jest po prostu osadzonym formularzem</p>
       </div>
     </div>
   </div>

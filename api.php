@@ -55,7 +55,7 @@ $input = json_decode(file_get_contents("php://input"), true);
 $id = $_GET["id"] ?? null;
 
 if ($method !== "OPTIONS") { // OPTIONS nie wymaga JWT
-    //authenticate($secretKey);         // <<<<<< TUTAJ ODKOMENTUJ !!!
+    authenticate($secretKey);         // <<<<<< TUTAJ ODKOMENTUJ !!!
 }
 
 switch ($method) {
