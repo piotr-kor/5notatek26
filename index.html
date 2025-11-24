@@ -1,148 +1,92 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notatniczek</title>
-  <link href="bootstrap.min.css" rel="stylesheet">  <!-- custom style from https://bootswatch.com/ -->
-  <link rel="stylesheet" href="css.css">
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie</title>
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css.css">
 </head>
-<body class="p-5">
+<body class="bg-light">
 
-  <div class="container">
-    <h2 class="mb-4">Notatniczek</h2>
-
-    <!-- Pasek z zakładkami -->
-    <ul class="nav nav-tabs" id="myTab">
-      <li class="nav-item">
-        <button class="nav-link active" id="akordeon-notatek-tab" data-bs-toggle="tab" data-bs-target="#notatki-akordeon"
-          type="button">
-          Notatki - akordeon
-        </button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link" id="kasowanie-tab" data-bs-toggle="tab" data-bs-target="#kasowanie"
-          type="button">
-          Kasowanie notatek
-        </button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link" id="eksport-tab" data-bs-toggle="tab" data-bs-target="#eksport"
-          type="button">
-          Eksport notatek
-        </button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link" id="api-test-tab" data-bs-toggle="tab" data-bs-target="#api-test"
-          type="button">
-          API - tester
-        </button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-test"
-          type="button">
-          Logowanie - tester
-        </button>
-      </li>
-    </ul>
-
-    <!-- Zawartość zakładek -->
-    <div class="tab-content border border-top-0 p-4 bg-light rounded-bottom" id="myTabContent">
-      <div class="tab-pane fade show active" id="notatki-akordeon">
-        <p><label>
-          <input type="checkbox" id="sortCheckbox" class="form-check-input me-3" onchange="czy_sortowac()">
-          Sortuj po treści
-        </label></p>
-        <div class="accordion" id="accordionExample">
-            <!-- Ten accordion-item i tak zoztenie usunięty... -->
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
-                    Sekcja 1
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                    To jest zawartość sekcji pierwszej.
+    <div class="container">
+        <div class="row justify-content-center align-items-center vh-100">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title text-center mb-4">Logowanie</h3>
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Nazwa użytkownika</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Hasło</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Zaloguj się</button>
+                            </div>
+                            <div id="loginMessage" class="mt-3 text-center text-danger"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title text-center mb-4">Wylogowywanie</h3>
+                        <p>Nastąpi wykasowanie tokena JWT z localStorage</p>
+                        <div class="d-grid">
+                            <button id="logoutBtn" class="btn btn-primary">Wyloguj się</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-      </div>
-      <div class="tab-pane fade" id="kasowanie">
-        <h4>Kasowanie</h4>
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#optionsModal">
-          Wyczyść treść wszystkich notatek
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="optionsModal" tabindex="-1" aria-labelledby="optionsModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="optionsModalLabel">Wybierz</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zamknij"></button>
-              </div>
-              <div class="modal-body">
-                Ta opcja powinna wyczyścić treść wszystkich notatek, ale wyczyści tylko jedną. Wyczyścić?
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
-                <button type="button" class="btn btn-success" onclick="kasowanie();" data-bs-dismiss="modal">Tak</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="tab-pane fade" id="eksport">
-        <h4>Eksport</h4>
-        <table class="table  table-hover  align-middle shadow-sm">
-          <thead class="fs-5">
-            <tr>
-              <th>Format</th>
-              <th>Podgląd</th>
-              <th>Pobierz</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>TXT</td>
-              <td><span class="kodzik">Notatka 1 - treść 1<br>Notatka 2 - treść 2<br>Notatka 3 - treść 3</span></td></td>
-              <td><button onclick="exportuj('txt')">Eksport TXT</button></td>
-            </tr>
-            <tr>
-              <td>CSV</td>
-              <td><span class="kodzik">id,content<br>"1","treść 1"<br>"2","treść 2"<br>"3","treść 3"</span></td>
-              <td><button onclick="exportuj('csv')">Eksport CSV</button></td>
-            </tr>
-            <tr>
-              <td>JSON</td>
-              <td><span class="kodzik">[{<br>"id": 1,<br>"content": "treść 1"},<br>{"id": 2,<br>"content": "treść 2"},</span></td>
-              <td><button onclick="exportuj('json')">Eksport JSON</button></td>
-            </tr>
-            <tr>
-              <td>EXE  (C++)</td>
-              <td><span class="kodzik">items[] = {{1, "treść 1"}, {2, "treść 2"}, {3, "treść 3"}};<br>
-                for(auto& i : items) std::cout &lt;&lt; i.id &lt;&lt; ": " &lt;&lt; i.content &lt;&lt; std::endl; </span></td>
-              <td><button id="exe-btn" onclick="changeBtnText()">Eksport EXE</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="tab-pane fade" id="api-test">
-        <iframe src="test.html" width="100%" height="800"></iframe>
-        <p>Jeśli wykonasz jakieś zmiany w bazie z tego miejsca, to może być konieczne odświerzenie aplikacji, gdyż API-tester nie jest częścią aplikacji. 
-          Jest po prostu osadzonym API-testerem</p>
-      </div>
-      <div class="tab-pane fade" id="login-test">
-        <iframe src="login.html" width="100%" height="500"></iframe>
-        <p>Jeśli wykonasz jakieś zmiany w bazie z tego miejsca, to może być konieczne odświerzenie aplikacji, gdyż ten formularz nie jest częścią aplikacji. 
-          Jest po prostu osadzonym formularzem</p>
-      </div>
     </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js.js"></script>
+
+    <script>
+        async function login(username, password) {
+            try {
+                const res = await fetch("auth.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    localStorage.setItem("token", data.token);
+                    //alert("Zalogowano! Token zapisany w localStorage.");
+                    document.getElementById("loginMessage").textContent = "";
+                    window.location.replace("index2.html");
+                } else {
+                    document.getElementById("loginMessage").textContent = data.error;
+                }
+            } catch (err) {
+                document.getElementById("loginMessage").textContent = "Błąd połączenia z serwerem";
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("token");
+            alert("Wylogowano! Token usunięty z localStorage.");
+            window.location.replace("index.html");
+        }
+
+        // Obsługa formularza logowania
+        document.getElementById("loginForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            login(username, password);
+        });
+
+        // Obsługa przycisku wylogowania
+        document.getElementById("logoutBtn").addEventListener("click", logout);
+    </script>
+
 </body>
 </html>

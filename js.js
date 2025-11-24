@@ -156,3 +156,11 @@ function changeBtnText() {
     const btn = document.getElementById('exe-btn');
     btn.textContent = btn.textContent === "Eksport EXE" ? "Brak wirusa..." : "...a mógł być!";
 }
+function logout() {
+    localStorage.removeItem("token");
+    alert("Wylogowano! Token usunięty z localStorage.");
+    window.location.replace("index.html");
+}
+
+// Obsługa przycisku wylogowania
+document.getElementById("logoutBtn").addEventListener("click", logout);
