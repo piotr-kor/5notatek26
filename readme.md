@@ -1,4 +1,4 @@
-# Kilka uwag na temat dodawania bibliotek PHP
+# Kilka uwag na temat dodawania bibliotek PHP.
 1. W repozytorium nie ma katalogu bibliotek (bo nie powinno go być). Potrzebne biblioteki trzeba sobie pobrać do katalogu projektu. 
     - Lista potrzebnych bibliotek jest w pliku composer.json 
     - Wersje tych bibliotek (i innych wymaganych) są w pliku composer.lock
